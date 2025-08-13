@@ -3,221 +3,12 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<h1>Pregnancy Liver Function Assessment</h1>
-<p>
-  For NotebookLM 
-  <a href="https://notebooklm.google.com/notebook/afa2c198-abb0-4a48-b3e8-3ac0afde27b3" target="_blank" rel="noopener noreferrer" style="color:#2a7ae2; text-decoration:none;">
-    đây
-  </a>.
-</p>
-
+    <title>Pregnancy Liver Function Assessment</title>
     <style>
         * {
             margin: 0;
             padding: 0;
             box-sizing: border-box;
-        }
-        
-        function generateRecommendations(diagnoses, data) {
-            const recommendations = [];
-            
-            // Get top diagnosis for targeted recommendations
-            const topDiagnosis = diagnoses.length > 0 ? diagnoses[0] : null;
-            
-            // Laboratory recommendations based on top diagnosis
-            if (topDiagnosis) {
-                if (topDiagnosis.name.includes('HELLP')) {
-                    if (data.platelets === '') {
-                        recommendations.push({
-                            type: 'urgent-lab',
-                            title: 'URGENT: Complete Blood Count',
-                            content: 'Platelet count required to confirm HELLP diagnosis (low platelets <100k is one of the criteria)'
-                        });
-                    }
-                    if (data.ldh === '') {
-                        recommendations.push({
-                            type: 'urgent-lab',
-                            title: 'URGENT: LDH Level',
-                            content: 'LDH required to assess hemolysis component of HELLP syndrome'
-                        });
-                    }
-                    if (data.inr === '') {
-                        recommendations.push({
-                            type: 'urgent-lab',
-                            title: 'URGENT: Coagulation Studies',
-                            content: 'INR/PT/PTT to assess for coagulopathy and severity'
-                        });
-                    }
-                    recommendations.push({
-                        type: 'clinical',
-                        title: 'Clinical Assessment for Severe Preeclampsia',
-                        content: 'Assess for severe features: severe hypertension, visual disturbances, epigastric pain, oliguria, pulmonary edema'
-                    });
-                    recommendations.push({
-                        type: 'monitoring',
-                        title: 'Continuous Monitoring',
-                        content: 'Blood pressure monitoring, neurological assessments, fluid balance. Consider delivery consultation.'
-                    });
-                }
-                
-                if (topDiagnosis.name.includes('Preeclampsia')) {
-                    if (data.platelets === '') {
-                        recommendations.push({
-                            type: 'urgent-lab',
-                            title: 'Complete Blood Count',
-                            content: 'Platelet count to assess for thrombocytopenia and potential HELLP syndrome'
-                        });
-                    }
-                    if (data.ldh === '') {
-                        recommendations.push({
-                            type: 'lab',
-                            title: 'LDH Level',
-                            content: 'To assess for hemolysis component (HELLP syndrome)'
-                        });
-                    }
-                    if (data.uricAcid === '') {
-                        recommendations.push({
-                            type: 'lab',
-                            title: 'Uric Acid Level',
-                            content: 'Often elevated in preeclampsia, helpful for diagnosis'
-                        });
-                    }
-                    recommendations.push({
-                        type: 'clinical',
-                        title: 'Proteinuria Assessment',
-                        content: 'Urine protein/creatinine ratio or 24-hour urine collection if not already done'
-                    });
-                    recommendations.push({
-                        type: 'clinical',
-                        title: 'Assessment for Severe Features',
-                        content: 'Visual symptoms, severe headache, epigastric pain, oliguria, pulmonary edema'
-                    });
-                }
-                
-                if (topDiagnosis.name.includes('ICP')) {
-                    if (data.bileAcids === '') {
-                        recommendations.push({
-                            type: 'urgent-lab',
-                            title: 'URGENT: Bile Acids Level',
-                            content: 'Essential for ICP diagnosis - elevated bile acids >10 μmol/L confirm diagnosis'
-                        });
-                    }
-                    recommendations.push({
-                        type: 'monitoring',
-                        title: 'Fetal Monitoring',
-                        content: 'Increased surveillance: NST, BPP, amniotic fluid assessment. Consider delivery timing based on bile acid levels.'
-                    });
-                    recommendations.push({
-                        type: 'treatment',
-                        title: 'Ursodeoxycholic Acid (UDCA)',
-                        content: 'Consider UDCA therapy to reduce bile acids and improve maternal symptoms'
-                    });
-                }
-                
-                if (topDiagnosis.name.includes('AFLP')) {
-                    if (data.inr === '') {
-                        recommendations.push({
-                            type: 'urgent-lab',
-                            title: 'URGENT: Coagulation Studies',
-                            content: 'INR/PT/PTT essential to assess coagulopathy severity'
-                        });
-                    }
-                    if (data.platelets === '') {
-                        recommendations.push({
-                            type: 'urgent-lab',
-                            title: 'URGENT: Complete Blood Count',
-                            content: 'Platelet count and hemoglobin to assess severity'
-                        });
-                    }
-                    recommendations.push({
-                        type: 'urgent-lab',
-                        title: 'URGENT: Additional Labs',
-                        content: 'Ammonia level, blood glucose, creatinine, fibrinogen'
-                    });
-                    recommendations.push({
-                        type: 'clinical',
-                        title: 'Immediate Delivery Consultation',
-                        content: 'AFLP requires immediate delivery regardless of gestational age. Multidisciplinary team approach.'
-                    });
-                    recommendations.push({
-                        type: 'imaging',
-                        title: 'Consider Liver MRI',
-                        content: 'If diagnosis uncertain, MRI may show characteristic fatty infiltration pattern'
-                    });
-                }
-                
-                if (topDiagnosis.name.includes('Gallstone')) {
-                    if (data.liverUltrasound === '') {
-                        recommendations.push({
-                            type: 'imaging',
-                            title: 'Abdominal Ultrasound',
-                            content: 'To visualize gallbladder, gallstones, and bile duct dilatation'
-                        });
-                    }
-                    if (data.liverUltrasound !== 'gallstones' && data.liverUltrasound !== 'bile-duct-dilatation') {
-                        recommendations.push({
-                            type: 'imaging',
-                            title: 'MRCP (Magnetic Resonance Cholangiopancreatography)',
-                            content: 'If ultrasound non-diagnostic and clinical suspicion high for choledocholithiasis'
-                        });
-                    }
-                }
-                
-                if (topDiagnosis.name.includes('Viral Hepatitis')) {
-                    recommendations.push({
-                        type: 'urgent-lab',
-                        title: 'Viral Hepatitis Panel',
-                        content: 'HAV IgM, HBsAg, HBcAb IgM, HCV Ab, HEV IgM (especially important in pregnancy)'
-                    });
-                    recommendations.push({
-                        type: 'lab',
-                        title: 'Additional Viral Studies',
-                        content: 'CMV IgM, EBV VCA IgM if other viral causes suspected'
-                    });
-                }
-                
-                if (topDiagnosis.name.includes('DILI')) {
-                    recommendations.push({
-                        type: 'clinical',
-                        title: 'Medication Review',
-                        content: 'Detailed review of all medications, supplements, herbal products. Discontinue suspected hepatotoxic agents.'
-                    });
-                    recommendations.push({
-                        type: 'lab',
-                        title: 'Acetaminophen Level',
-                        content: 'If acetaminophen toxicity suspected, check serum level and consider N-acetylcysteine'
-                    });
-                }
-            }
-            
-            // General recommendations based on missing key tests
-            if (data.liverUltrasound === '') {
-                recommendations.push({
-                    type: 'imaging',
-                    title: 'Liver Ultrasound',
-                    content: 'Recommended to assess liver architecture, exclude biliary obstruction, and evaluate for fatty infiltration'
-                });
-            }
-            
-            if (data.dopplerUltrasound === '') {
-                recommendations.push({
-                    type: 'imaging',
-                    title: 'Doppler Ultrasound',
-                    content: 'To exclude hepatic or portal vein thrombosis, especially if liver function severely impaired'
-                });
-            }
-            
-            // Severe liver injury recommendations
-            if ((data.ast === '5-10x' || data.ast === '>10x' || data.alt === '5-10x' || data.alt === '>10x') || 
-                (data.inr === '1.5-2' || data.inr === '>2')) {
-                recommendations.push({
-                    type: 'urgent-clinical',
-                    title: 'Acute Liver Failure Assessment',
-                    content: 'Assess for hepatic encephalopathy, consider ICU admission, hepatology consultation, discuss delivery timing'
-                });
-            }
-            
-            return recommendations;
         }
         
         body {
@@ -463,6 +254,15 @@
             display: none;
         }
         
+        .error-message {
+            background: #f8d7da;
+            color: #721c24;
+            padding: 10px;
+            border-radius: 5px;
+            margin-top: 10px;
+            border: 1px solid #f5c6cb;
+        }
+        
         @media (max-width: 768px) {
             .content {
                 grid-template-columns: 1fr;
@@ -524,10 +324,10 @@
                     <label for="gestational-age">Gestational Age:</label>
                     <select id="gestational-age" onchange="showReferenceRanges()">
                         <option value="">-- Select gestational age --</option>
-                        <option value="first">First trimester (≤13 weeks)</option>
-                        <option value="second-early">Second trimester <20 weeks (14-19 weeks)</option>
-                        <option value="second-late">Second trimester ≥20 weeks (20-27 weeks)</option>
-                        <option value="third">Third trimester (≥28 weeks)</option>
+                        <option value="first">First trimester (&le;13 weeks)</option>
+                        <option value="second-early">Second trimester &lt;20 weeks (14-19 weeks)</option>
+                        <option value="second-late">Second trimester &ge;20 weeks (20-27 weeks)</option>
+                        <option value="third">Third trimester (&ge;28 weeks)</option>
                         <option value="postpartum">Postpartum</option>
                     </select>
                 </div>
@@ -545,7 +345,7 @@
                             <option value="1-2x">1-2x upper limit</option>
                             <option value="2-5x">2-5x upper limit</option>
                             <option value="5-10x">5-10x upper limit</option>
-                            <option value=">10x">>10x upper limit</option>
+                            <option value=">10x">&gt;10x upper limit</option>
                         </select>
                     </div>
                     
@@ -557,7 +357,7 @@
                             <option value="1-2x">1-2x upper limit</option>
                             <option value="2-5x">2-5x upper limit</option>
                             <option value="5-10x">5-10x upper limit</option>
-                            <option value=">10x">>10x upper limit</option>
+                            <option value=">10x">&gt;10x upper limit</option>
                         </select>
                     </div>
                 </div>
@@ -570,7 +370,7 @@
                             <option value="normal">Normal</option>
                             <option value="1-2x">1-2x upper limit</option>
                             <option value="2-3x">2-3x upper limit</option>
-                            <option value=">3x">>3x upper limit</option>
+                            <option value=">3x">&gt;3x upper limit</option>
                         </select>
                     </div>
                     
@@ -582,20 +382,20 @@
                             <option value="1-3">1-3 mg/dL</option>
                             <option value="3-6">3-6 mg/dL</option>
                             <option value="6-10">6-10 mg/dL</option>
-                            <option value=">10">>10 mg/dL</option>
+                            <option value=">10">&gt;10 mg/dL</option>
                         </select>
                     </div>
                 </div>
                 
                 <div class="form-grid">
                     <div class="form-group">
-                        <label for="bile-acids">Bile Acids (μmol/L):</label>
+                        <label for="bile-acids">Bile Acids (&mu;mol/L):</label>
                         <select id="bile-acids">
                             <option value="">-- Not tested --</option>
-                            <option value="normal">Normal (<10)</option>
+                            <option value="normal">Normal (&lt;10)</option>
                             <option value="10-40">10-40</option>
                             <option value="40-100">40-100</option>
-                            <option value=">100">>100</option>
+                            <option value=">100">&gt;100</option>
                         </select>
                     </div>
                     
@@ -603,10 +403,10 @@
                         <label for="platelets">Platelet Count:</label>
                         <select id="platelets">
                             <option value="">-- Not tested --</option>
-                            <option value="normal">Normal (>150k)</option>
+                            <option value="normal">Normal (&gt;150k)</option>
                             <option value="100-150">100-150k</option>
                             <option value="70-100">70-100k</option>
-                            <option value="<70"><70k</option>
+                            <option value="<70">&lt;70k</option>
                         </select>
                     </div>
                 </div>
@@ -616,10 +416,10 @@
                         <label for="inr">INR:</label>
                         <select id="inr">
                             <option value="">-- Not tested --</option>
-                            <option value="normal">Normal (<1.2)</option>
+                            <option value="normal">Normal (&lt;1.2)</option>
                             <option value="1.2-1.5">1.2-1.5</option>
                             <option value="1.5-2">1.5-2.0</option>
-                            <option value=">2">>2.0</option>
+                            <option value=">2">&gt;2.0</option>
                         </select>
                     </div>
                     
@@ -721,7 +521,7 @@
                             <option value="">-- Not assessed --</option>
                             <option value="normal">Normal</option>
                             <option value="new-onset">New onset hypertension</option>
-                            <option value="severe">Severe hypertension (≥160/110)</option>
+                            <option value="severe">Severe hypertension (&ge;160/110)</option>
                         </select>
                     </div>
                     
@@ -822,6 +622,209 @@
     </div>
 
     <script>
+        // Moved generateRecommendations function here from style tag
+        function generateRecommendations(diagnoses, data) {
+            const recommendations = [];
+            
+            // Get top diagnosis for targeted recommendations
+            const topDiagnosis = diagnoses.length > 0 ? diagnoses[0] : null;
+            
+            // Laboratory recommendations based on top diagnosis
+            if (topDiagnosis) {
+                if (topDiagnosis.name.includes('HELLP')) {
+                    if (data.platelets === '') {
+                        recommendations.push({
+                            type: 'urgent-lab',
+                            title: 'URGENT: Complete Blood Count',
+                            content: 'Platelet count required to confirm HELLP diagnosis (low platelets <100k is one of the criteria)'
+                        });
+                    }
+                    if (data.ldh === '') {
+                        recommendations.push({
+                            type: 'urgent-lab',
+                            title: 'URGENT: LDH Level',
+                            content: 'LDH required to assess hemolysis component of HELLP syndrome'
+                        });
+                    }
+                    if (data.inr === '') {
+                        recommendations.push({
+                            type: 'urgent-lab',
+                            title: 'URGENT: Coagulation Studies',
+                            content: 'INR/PT/PTT to assess for coagulopathy and severity'
+                        });
+                    }
+                    recommendations.push({
+                        type: 'clinical',
+                        title: 'Clinical Assessment for Severe Preeclampsia',
+                        content: 'Assess for severe features: severe hypertension, visual disturbances, epigastric pain, oliguria, pulmonary edema'
+                    });
+                    recommendations.push({
+                        type: 'monitoring',
+                        title: 'Continuous Monitoring',
+                        content: 'Blood pressure monitoring, neurological assessments, fluid balance. Consider delivery consultation.'
+                    });
+                }
+                
+                if (topDiagnosis.name.includes('Preeclampsia')) {
+                    if (data.platelets === '') {
+                        recommendations.push({
+                            type: 'urgent-lab',
+                            title: 'Complete Blood Count',
+                            content: 'Platelet count to assess for thrombocytopenia and potential HELLP syndrome'
+                        });
+                    }
+                    if (data.ldh === '') {
+                        recommendations.push({
+                            type: 'lab',
+                            title: 'LDH Level',
+                            content: 'To assess for hemolysis component (HELLP syndrome)'
+                        });
+                    }
+                    if (data.uricAcid === '') {
+                        recommendations.push({
+                            type: 'lab',
+                            title: 'Uric Acid Level',
+                            content: 'Often elevated in preeclampsia, helpful for diagnosis'
+                        });
+                    }
+                    recommendations.push({
+                        type: 'clinical',
+                        title: 'Proteinuria Assessment',
+                        content: 'Urine protein/creatinine ratio or 24-hour urine collection if not already done'
+                    });
+                    recommendations.push({
+                        type: 'clinical',
+                        title: 'Assessment for Severe Features',
+                        content: 'Visual symptoms, severe headache, epigastric pain, oliguria, pulmonary edema'
+                    });
+                }
+                
+                if (topDiagnosis.name.includes('ICP')) {
+                    if (data.bileAcids === '') {
+                        recommendations.push({
+                            type: 'urgent-lab',
+                            title: 'URGENT: Bile Acids Level',
+                            content: 'Essential for ICP diagnosis - elevated bile acids >10 &mu;mol/L confirm diagnosis'
+                        });
+                    }
+                    recommendations.push({
+                        type: 'monitoring',
+                        title: 'Fetal Monitoring',
+                        content: 'Increased surveillance: NST, BPP, amniotic fluid assessment. Consider delivery timing based on bile acid levels.'
+                    });
+                    recommendations.push({
+                        type: 'treatment',
+                        title: 'Ursodeoxycholic Acid (UDCA)',
+                        content: 'Consider UDCA therapy to reduce bile acids and improve maternal symptoms'
+                    });
+                }
+                
+                if (topDiagnosis.name.includes('AFLP')) {
+                    if (data.inr === '') {
+                        recommendations.push({
+                            type: 'urgent-lab',
+                            title: 'URGENT: Coagulation Studies',
+                            content: 'INR/PT/PTT essential to assess coagulopathy severity'
+                        });
+                    }
+                    if (data.platelets === '') {
+                        recommendations.push({
+                            type: 'urgent-lab',
+                            title: 'URGENT: Complete Blood Count',
+                            content: 'Platelet count and hemoglobin to assess severity'
+                        });
+                    }
+                    recommendations.push({
+                        type: 'urgent-lab',
+                        title: 'URGENT: Additional Labs',
+                        content: 'Ammonia level, blood glucose, creatinine, fibrinogen'
+                    });
+                    recommendations.push({
+                        type: 'clinical',
+                        title: 'Immediate Delivery Consultation',
+                        content: 'AFLP requires immediate delivery regardless of gestational age. Multidisciplinary team approach.'
+                    });
+                    recommendations.push({
+                        type: 'imaging',
+                        title: 'Consider Liver MRI',
+                        content: 'If diagnosis uncertain, MRI may show characteristic fatty infiltration pattern'
+                    });
+                }
+                
+                if (topDiagnosis.name.includes('Gallstone')) {
+                    if (data.liverUltrasound === '') {
+                        recommendations.push({
+                            type: 'imaging',
+                            title: 'Abdominal Ultrasound',
+                            content: 'To visualize gallbladder, gallstones, and bile duct dilatation'
+                        });
+                    }
+                    if (data.liverUltrasound !== 'gallstones' && data.liverUltrasound !== 'bile-duct-dilatation') {
+                        recommendations.push({
+                            type: 'imaging',
+                            title: 'MRCP (Magnetic Resonance Cholangiopancreatography)',
+                            content: 'If ultrasound non-diagnostic and clinical suspicion high for choledocholithiasis'
+                        });
+                    }
+                }
+                
+                if (topDiagnosis.name.includes('Viral Hepatitis')) {
+                    recommendations.push({
+                        type: 'urgent-lab',
+                        title: 'Viral Hepatitis Panel',
+                        content: 'HAV IgM, HBsAg, HBcAb IgM, HCV Ab, HEV IgM (especially important in pregnancy)'
+                    });
+                    recommendations.push({
+                        type: 'lab',
+                        title: 'Additional Viral Studies',
+                        content: 'CMV IgM, EBV VCA IgM if other viral causes suspected'
+                    });
+                }
+                
+                if (topDiagnosis.name.includes('DILI')) {
+                    recommendations.push({
+                        type: 'clinical',
+                        title: 'Medication Review',
+                        content: 'Detailed review of all medications, supplements, herbal products. Discontinue suspected hepatotoxic agents.'
+                    });
+                    recommendations.push({
+                        type: 'lab',
+                        title: 'Acetaminophen Level',
+                        content: 'If acetaminophen toxicity suspected, check serum level and consider N-acetylcysteine'
+                    });
+                }
+            }
+            
+            // General recommendations based on missing key tests
+            if (data.liverUltrasound === '') {
+                recommendations.push({
+                    type: 'imaging',
+                    title: 'Liver Ultrasound',
+                    content: 'Recommended to assess liver architecture, exclude biliary obstruction, and evaluate for fatty infiltration'
+                });
+            }
+            
+            if (data.dopplerUltrasound === '') {
+                recommendations.push({
+                    type: 'imaging',
+                    title: 'Doppler Ultrasound',
+                    content: 'To exclude hepatic or portal vein thrombosis, especially if liver function severely impaired'
+                });
+            }
+            
+            // Severe liver injury recommendations
+            if ((data.ast === '5-10x' || data.ast === '>10x' || data.alt === '5-10x' || data.alt === '>10x') || 
+                (data.inr === '1.5-2' || data.inr === '>2')) {
+                recommendations.push({
+                    type: 'urgent-clinical',
+                    title: 'Acute Liver Failure Assessment',
+                    content: 'Assess for hepatic encephalopathy, consider ICU admission, hepatology consultation, discuss delivery timing'
+                });
+            }
+            
+            return recommendations;
+        }
+        
         function showReferenceRanges() {
             const gestationalAge = document.getElementById('gestational-age').value;
             const container = document.getElementById('reference-ranges');
@@ -837,64 +840,79 @@
         }
         
         function resetForm() {
-            // Reset all form elements
-            document.querySelectorAll('select').forEach(select => select.selectedIndex = 0);
-            document.querySelectorAll('input[type="checkbox"]').forEach(checkbox => checkbox.checked = false);
-            
-            // Hide reference ranges
-            document.getElementById('reference-ranges').classList.add('hidden');
-            
-            // Clear results
-            document.getElementById('analysis-results').innerHTML = 
-                '<p style="color: #6c757d; text-align: center; margin-top: 50px;">Please complete the assessment and click "Analyze Results" to view differential diagnosis</p>';
+            try {
+                // Reset all form elements
+                document.querySelectorAll('select').forEach(select => select.selectedIndex = 0);
+                document.querySelectorAll('input[type="checkbox"]').forEach(checkbox => checkbox.checked = false);
+                
+                // Hide reference ranges
+                document.getElementById('reference-ranges').classList.add('hidden');
+                
+                // Clear results
+                document.getElementById('analysis-results').innerHTML = 
+                    '<p style="color: #6c757d; text-align: center; margin-top: 50px;">Please complete the assessment and click "Analyze Results" to view differential diagnosis</p>';
+            } catch (error) {
+                console.error('Error resetting form:', error);
+                showError('Error resetting form. Please refresh the page.');
+            }
         }
         
         function exportToPDF() {
             window.print();
         }
         
+        function showError(message) {
+            const container = document.getElementById('analysis-results');
+            container.innerHTML = `<div class="error-message">${message}</div>`;
+        }
+        
         function analyzeResults() {
-            const data = {
-                gestationalAge: document.getElementById('gestational-age').value,
-                ast: document.getElementById('ast').value,
-                alt: document.getElementById('alt').value,
-                alp: document.getElementById('alp').value,
-                bilirubinTotal: document.getElementById('bilirubin-total').value,
-                bileAcids: document.getElementById('bile-acids').value,
-                platelets: document.getElementById('platelets').value,
-                inr: document.getElementById('inr').value,
-                uricAcid: document.getElementById('uric-acid').value,
-                ldh: document.getElementById('ldh').value,
-                liverUltrasound: document.getElementById('liver-ultrasound').value,
-                dopplerUltrasound: document.getElementById('doppler-ultrasound').value,
-                pruritus: document.getElementById('pruritus').value,
-                jaundice: document.getElementById('jaundice').value,
-                nauseaVomiting: document.getElementById('nausea-vomiting').value,
-                abdominalPain: document.getElementById('abdominal-pain').value,
-                hypertension: document.getElementById('hypertension').value,
-                headache: document.getElementById('headache').value,
-                // Medical history
-                previousIcp: document.getElementById('previous-icp').checked,
-                previousPreeclampsia: document.getElementById('previous-preeclampsia').checked,
-                previousHellp: document.getElementById('previous-hellp').checked,
-                chronicLiverDisease: document.getElementById('chronic-liver-disease').checked,
-                hepatitisB: document.getElementById('hepatitis-b').checked,
-                hepatitisC: document.getElementById('hepatitis-c').checked,
-                autoimmune: document.getElementById('autoimmune-hepatitis').checked,
-                wilson: document.getElementById('wilson-disease').checked,
-                nafld: document.getElementById('nafld').checked,
-                alcoholUse: document.getElementById('alcohol-use').checked,
-                diabetes: document.getElementById('diabetes').checked,
-                gallstones: document.getElementById('gallstones').checked,
-                drugHepatotoxicity: document.getElementById('drug-hepatotoxicity').checked,
-                acetaminophenUse: document.getElementById('acetaminophen-use').checked,
-                multiplePregnancy: document.getElementById('multiple-pregnancy').checked,
-                familyHistoryLiver: document.getElementById('family-history-liver').checked
-            };
-            
-            const diagnoses = calculateDifferentialDiagnosis(data);
-            const recommendations = generateRecommendations(diagnoses, data);
-            displayResults(diagnoses, recommendations, data);
+            try {
+                const data = {
+                    gestationalAge: document.getElementById('gestational-age').value,
+                    ast: document.getElementById('ast').value,
+                    alt: document.getElementById('alt').value,
+                    alp: document.getElementById('alp').value,
+                    bilirubinTotal: document.getElementById('bilirubin-total').value,
+                    bileAcids: document.getElementById('bile-acids').value,
+                    platelets: document.getElementById('platelets').value,
+                    inr: document.getElementById('inr').value,
+                    uricAcid: document.getElementById('uric-acid').value,
+                    ldh: document.getElementById('ldh').value,
+                    liverUltrasound: document.getElementById('liver-ultrasound').value,
+                    dopplerUltrasound: document.getElementById('doppler-ultrasound').value,
+                    pruritus: document.getElementById('pruritus').value,
+                    jaundice: document.getElementById('jaundice').value,
+                    nauseaVomiting: document.getElementById('nausea-vomiting').value,
+                    abdominalPain: document.getElementById('abdominal-pain').value,
+                    hypertension: document.getElementById('hypertension').value,
+                    headache: document.getElementById('headache').value,
+                    // Medical history
+                    previousIcp: document.getElementById('previous-icp').checked,
+                    previousPreeclampsia: document.getElementById('previous-preeclampsia').checked,
+                    previousHellp: document.getElementById('previous-hellp').checked,
+                    chronicLiverDisease: document.getElementById('chronic-liver-disease').checked,
+                    hepatitisB: document.getElementById('hepatitis-b').checked,
+                    hepatitisC: document.getElementById('hepatitis-c').checked,
+                    autoimmune: document.getElementById('autoimmune-hepatitis').checked,
+                    wilson: document.getElementById('wilson-disease').checked,
+                    nafld: document.getElementById('nafld').checked,
+                    alcoholUse: document.getElementById('alcohol-use').checked,
+                    diabetes: document.getElementById('diabetes').checked,
+                    gallstones: document.getElementById('gallstones').checked,
+                    drugHepatotoxicity: document.getElementById('drug-hepatotoxicity').checked,
+                    acetaminophenUse: document.getElementById('acetaminophen-use').checked,
+                    multiplePregnancy: document.getElementById('multiple-pregnancy').checked,
+                    familyHistoryLiver: document.getElementById('family-history-liver').checked
+                };
+                
+                const diagnoses = calculateDifferentialDiagnosis(data);
+                const recommendations = generateRecommendations(diagnoses, data);
+                displayResults(diagnoses, recommendations, data);
+            } catch (error) {
+                console.error('Error analyzing results:', error);
+                showError('Error analyzing results. Please check your inputs and try again.');
+            }
         }
         
         function calculateDifferentialDiagnosis(data) {
@@ -949,7 +967,7 @@
                 
                 diagnoses.push({
                     name: 'HELLP Syndrome',
-                    score: hellpScore,
+                    score: Math.min(hellpScore, 100), // Cap at 100
                     reasons: hellpReasons
                 });
             }
@@ -969,13 +987,13 @@
             
             if (data.bileAcids === '10-40') {
                 icpScore += 50;
-                icpReasons.push('Moderately elevated bile acids (10-40 μmol/L)');
+                icpReasons.push('Moderately elevated bile acids (10-40 &mu;mol/L)');
             } else if (data.bileAcids === '40-100') {
                 icpScore += 70;
-                icpReasons.push('Significantly elevated bile acids (40-100 μmol/L)');
+                icpReasons.push('Significantly elevated bile acids (40-100 &mu;mol/L)');
             } else if (data.bileAcids === '>100') {
                 icpScore += 85;
-                icpReasons.push('Severely elevated bile acids (>100 μmol/L)');
+                icpReasons.push('Severely elevated bile acids (>100 &mu;mol/L)');
             }
             
             if (data.gestationalAge === 'second-early' || data.gestationalAge === 'second-late' || data.gestationalAge === 'third') {
@@ -1006,7 +1024,7 @@
             if (icpScore > 0) {
                 diagnoses.push({
                     name: 'Intrahepatic Cholestasis of Pregnancy (ICP)',
-                    score: icpScore,
+                    score: Math.min(icpScore, 100),
                     reasons: icpReasons
                 });
             }
@@ -1058,7 +1076,7 @@
             if (aflpScore > 20) {
                 diagnoses.push({
                     name: 'Acute Fatty Liver of Pregnancy (AFLP)',
-                    score: aflpScore,
+                    score: Math.min(aflpScore, 100),
                     reasons: aflpReasons
                 });
             }
@@ -1077,7 +1095,7 @@
             
             if (data.gestationalAge === 'second-late' || data.gestationalAge === 'third') {
                 preeclampsiaScore += 20;
-                preeclampsiaReasons.push('≥20 weeks gestation');
+                preeclampsiaReasons.push('&ge;20 weeks gestation');
             }
             
             if (data.headache === 'yes') {
@@ -1108,7 +1126,7 @@
             if (preeclampsiaScore > 20) {
                 diagnoses.push({
                     name: 'Preeclampsia with liver involvement',
-                    score: preeclampsiaScore,
+                    score: Math.min(preeclampsiaScore, 100),
                     reasons: preeclampsiaReasons
                 });
             }
@@ -1140,7 +1158,7 @@
             if (diliScore > 0) {
                 diagnoses.push({
                     name: 'Drug-Induced Liver Injury (DILI)',
-                    score: diliScore,
+                    score: Math.min(diliScore, 100),
                     reasons: diliReasons
                 });
             }
@@ -1177,7 +1195,7 @@
             if (viralScore > 0) {
                 diagnoses.push({
                     name: 'Viral Hepatitis (acute or flare of chronic)',
-                    score: viralScore,
+                    score: Math.min(viralScore, 100),
                     reasons: viralReasons
                 });
             }
@@ -1224,7 +1242,7 @@
             if (gallstoneScore > 0) {
                 diagnoses.push({
                     name: 'Gallstone Disease/Choledocholithiasis',
-                    score: gallstoneScore,
+                    score: Math.min(gallstoneScore, 100),
                     reasons: gallstoneReasons
                 });
             }
@@ -1256,7 +1274,7 @@
             if (hyperemesisScore > 30) {
                 diagnoses.push({
                     name: 'Hyperemesis Gravidarum',
-                    score: hyperemesisScore,
+                    score: Math.min(hyperemesisScore, 100),
                     reasons: hyperemesisReasons
                 });
             }
@@ -1288,7 +1306,7 @@
             if (nafldScore > 30) {
                 diagnoses.push({
                     name: 'Non-alcoholic Fatty Liver Disease (NAFLD)',
-                    score: nafldScore,
+                    score: Math.min(nafldScore, 100),
                     reasons: nafldReasons
                 });
             }
@@ -1371,7 +1389,7 @@
             const ranges = {
                 first: { ast: '3-23', alt: '3-30', alp: '17-88', bilirubin: '0.1-0.4', title: 'First Trimester' },
                 'second-early': { ast: '3-33', alt: '2-33', alp: '25-126', bilirubin: '0.1-0.8', title: 'Second Trimester <20 weeks' },
-                'second-late': { ast: '3-33', alt: '2-33', alp: '25-126', bilirubin: '0.1-0.8', title: 'Second Trimester ≥20 weeks' },
+                'second-late': { ast: '3-33', alt: '2-33', alp: '25-126', bilirubin: '0.1-0.8', title: 'Second Trimester &ge;20 weeks' },
                 third: { ast: '4-32', alt: '2-25', alp: '38-229', bilirubin: '0.1-1.1', title: 'Third Trimester' },
                 postpartum: { ast: '12-38', alt: '7-41', alp: '33-96', bilirubin: '0.3-1.3', title: 'Postpartum' }
             };
@@ -1388,9 +1406,9 @@
                             <tr><td>ALT</td><td>${range.alt} U/L</td></tr>
                             <tr><td>ALP</td><td>${range.alp} U/L</td></tr>
                             <tr><td>Total Bilirubin</td><td>${range.bilirubin} mg/dL</td></tr>
-                            <tr><td>Bile Acids</td><td><10 μmol/L</td></tr>
-                            <tr><td>Platelets</td><td>>150,000/mm³</td></tr>
-                            <tr><td>INR</td><td><1.2</td></tr>
+                            <tr><td>Bile Acids</td><td>&lt;10 &mu;mol/L</td></tr>
+                            <tr><td>Platelets</td><td>&gt;150,000/mm&sup3;</td></tr>
+                            <tr><td>INR</td><td>&lt;1.2</td></tr>
                         </table>
                     </div>
                 `;
@@ -1400,6 +1418,4 @@
         }
     </script>
 </body>
-
 </html>
-
